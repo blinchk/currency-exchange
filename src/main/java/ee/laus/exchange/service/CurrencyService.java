@@ -2,6 +2,7 @@ package ee.laus.exchange.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ee.laus.exchange.client.response.currency.CurrencyListApiResponse;
+import ee.laus.exchange.exception.EntityNotFoundException;
 import ee.laus.exchange.model.currency.Currency;
 import ee.laus.exchange.model.currency.CurrencyResponse;
 import ee.laus.exchange.response.CurrencyListItem;
@@ -14,11 +15,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CurrencyService {
-    private final CurrencyRepository repository;
+    private final CurrencyRepository currencyRepository;
     private final ObjectMapper mapper;
 
     public void upload(CurrencyListApiResponse response) {
-        repository.saveAll(
+        currencyRepository.deleteAll();
+        currencyRepository.saveAll(
                 response.currencies().stream()
                         .map(currency -> Currency.builder()
                                 .name(currency.name())
@@ -33,9 +35,9 @@ public class CurrencyService {
     public List<CurrencyListItem> getCurrencies(String searchTerm) {
         List<Currency> currencies;
         if (searchTerm != null) {
-            currencies = repository.findAllBySearchTerm(searchTerm);
+            currencies = currencyRepository.findAllBySearchTerm(searchTerm);
         } else {
-            currencies = repository.findAllWithExchangeRate();
+            currencies = currencyRepository.findAllWithExchangeRate();
         }
         return currencies.stream()
                 .map(currency -> mapper.convertValue(currency, CurrencyListItem.class))
@@ -43,6 +45,8 @@ public class CurrencyService {
     }
 
     public CurrencyResponse getCurrency(String code) {
-        return mapper.convertValue(repository.findByCode(code), CurrencyResponse.class);
+        return mapper.convertValue(currencyRepository.findByCode(code)
+                .orElseThrow(() -> new EntityNotFoundException("Currency with code " + code + " not found.")),
+                CurrencyResponse.class);
     }
 }

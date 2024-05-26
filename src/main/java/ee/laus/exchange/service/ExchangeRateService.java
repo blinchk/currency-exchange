@@ -25,6 +25,7 @@ public class ExchangeRateService {
     private final ObjectMapper mapper;
 
     public void upload(ExchangeRateListApiResponse response) {
+        exchangeRateRepository.deleteAll();
         List<ExchangeRate> exchangeRates = response.exchangeRates().stream()
                 .map(ExchangeRateDto::of)
                 .map(rate -> ExchangeRate.builder()
