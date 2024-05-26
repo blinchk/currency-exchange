@@ -1,4 +1,4 @@
-package ee.laus.exchange.model;
+package ee.laus.exchange.model.currency;
 
 import jakarta.persistence.*;
 import lombok.*;

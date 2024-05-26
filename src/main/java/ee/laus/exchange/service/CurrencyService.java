@@ -1,9 +1,10 @@
 package ee.laus.exchange.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ee.laus.exchange.client.currency.CurrencyListApiResponse;
-import ee.laus.exchange.model.Currency;
-import ee.laus.exchange.response.CurrencyResponse;
+import ee.laus.exchange.client.response.currency.CurrencyListApiResponse;
+import ee.laus.exchange.model.currency.Currency;
+import ee.laus.exchange.model.currency.CurrencyResponse;
+import ee.laus.exchange.response.CurrencyListItem;
 import lombok.RequiredArgsConstructor;
 import ee.laus.exchange.repository.CurrencyRepository;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,19 @@ public class CurrencyService {
         );
     }
 
-    public List<CurrencyResponse> getCurrencies() {
-        return repository.findAll().stream()
-                .map(currency -> mapper.convertValue(currency, CurrencyResponse.class))
+    public List<CurrencyListItem> getCurrencies(String searchTerm) {
+        List<Currency> currencies;
+        if (searchTerm != null) {
+            currencies = repository.findAllBySearchTerm(searchTerm);
+        } else {
+            currencies = repository.findAll();
+        }
+        return currencies.stream()
+                .map(currency -> mapper.convertValue(currency, CurrencyListItem.class))
                 .toList();
+    }
+
+    public CurrencyResponse getCurrency(String code) {
+        return mapper.convertValue(repository.findByCode(code), CurrencyResponse.class);
     }
 }

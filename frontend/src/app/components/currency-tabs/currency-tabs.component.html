@@ -1,0 +1,15 @@
+<div class="d-flex">
+  <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills currency-tabs overflow-y-scroll flex-nowrap" orientation="vertical">
+    <div class="mx-3 my-2">
+      <input [(ngModel)]="searchTerm" (ngModelChange)="onSearchTermChange($event)" type="text" class="form-control currency-search-input" placeholder="Currency Code">
+    </div>
+    <ng-container *ngFor="let currency of currencies" [ngbNavItem]="currency.code">
+      <a class="btn mx-3" ngbNavLink [ngClass]="{ 'hidden': !displayedCurrencies.includes(currency.code) }">{{ currency.code }}</a>
+      <ng-template ngbNavContent>
+        <app-currency [activeCurrencyCode]="active"></app-currency>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <div [ngbNavOutlet]="nav" class="ms-4 mt-3 container-fluid"></div>
+</div>

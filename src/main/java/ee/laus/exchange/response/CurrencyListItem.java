@@ -1,6 +1,6 @@
 package ee.laus.exchange.response;
 
-public record CurrencyResponse(
+public record CurrencyListItem(
         String code,
         String name
 ) {

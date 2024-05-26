@@ -1,4 +1,4 @@
-package ee.laus.exchange.client.currency;
+package ee.laus.exchange.client.response.currency;
 
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
