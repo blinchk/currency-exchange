@@ -14,7 +14,7 @@ public record ExchangeRateDto(
         LocalDate date
 ) {
 
-    public ExchangeRateDto of(ExchangeRateApiResponse response) {
+    public static ExchangeRateDto of(ExchangeRateApiResponse response) {
         CurrencyAmountApiResponse amount = response.amounts().stream()
                 .filter(responseAmount -> !responseAmount.code().equals(DEFAULT_CURRENCY))
                 .findFirst()

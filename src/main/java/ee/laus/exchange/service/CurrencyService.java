@@ -35,7 +35,7 @@ public class CurrencyService {
         if (searchTerm != null) {
             currencies = repository.findAllBySearchTerm(searchTerm);
         } else {
-            currencies = repository.findAll();
+            currencies = repository.findAllWithExchangeRate();
         }
         return currencies.stream()
                 .map(currency -> mapper.convertValue(currency, CurrencyListItem.class))

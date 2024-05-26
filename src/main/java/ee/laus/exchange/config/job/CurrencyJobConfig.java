@@ -1,13 +1,11 @@
-package ee.laus.exchange.config;
+package ee.laus.exchange.config.job;
 
 import ee.laus.exchange.job.CurrencySaveJob;
-import lombok.RequiredArgsConstructor;
 import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
 public class CurrencyJobConfig {
 
     @Bean

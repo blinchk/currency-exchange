@@ -35,6 +35,7 @@ public class LithuanianBankClient {
                           .queryParam("tp", currencyZone)
                           .queryParam("dtFrom", startDate)
                           .queryParam("dtTo", endDate)
+                          .queryParam("ccy", "")
                           .build().toUri();
         HttpEntity<Void> entity = new HttpEntity<>(getHeaders());
         return restTemplate.exchange(uri, HttpMethod.GET, entity, ExchangeRateListApiResponse.class).getBody();
