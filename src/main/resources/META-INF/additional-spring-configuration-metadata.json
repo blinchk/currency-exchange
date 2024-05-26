@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "application.lithuanian-bank-api.url",
+      "type": "java.lang.String",
+      "description": "Lithuanian Bank base URL for API requests."
+  }
+] }
