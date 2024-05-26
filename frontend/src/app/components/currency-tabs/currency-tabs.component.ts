@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CurrencyListItem} from "../../models/currency";
 import {CurrencyService} from "../../services/currency/currency.service";
-import {NgxEchartsDirective} from "ngx-echarts";
 
 @Component({
   selector: 'app-currency-tabs',

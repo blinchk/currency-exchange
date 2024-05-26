@@ -2,10 +2,7 @@ package ee.laus.exchange.job;
 
 import ee.laus.exchange.client.LithuanianBankClient;
 import ee.laus.exchange.service.CurrencyService;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.quartz.DisallowConcurrentExecution;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
